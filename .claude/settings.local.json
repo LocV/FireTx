@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i '' \"s/from '\\\\.\\\\/irmaa\\\\.js'/from '.\\\\/irmaa.ts'/\" src/engine/tables/irmaa.test.ts)",
+      "Bash(sed -i '' \"s/from '\\\\.\\\\/estate\\\\.js'/from '.\\\\/estate.ts'/\" src/engine/tables/estate.test.ts)",
+      "Bash(sed -i '' \"s/from '\\\\.\\\\/capitalGains\\\\.js'/from '.\\\\/capitalGains.ts'/\" src/engine/tables/capitalGains.test.ts)",
+      "Bash(sed -i '' \"s/from '\\\\.\\\\/brackets\\\\.js'/from '.\\\\/brackets.ts'/\" src/engine/tables/brackets.test.ts)",
+      "Bash(sed -i '' \"s/from '\\\\.\\\\/rmd\\\\.js'/from '.\\\\/rmd.ts'/\" src/engine/tables/rmd.test.ts)",
+      "Bash(npm run *)",
+      "Bash(/usr/local/bin/npm run *)",
+      "Bash(/opt/homebrew/bin/npm run *)",
+      "Bash(which npm *)",
+      "Bash(find /Users/locvuu -name \"npm\" -type f 2>/dev/null | head -5; find /usr -name \"npm\" 2>/dev/null | head -3)",
+      "Bash(git add *)",
+      "Bash(zsh -l -c \"npx tsx /tmp/debug-dp.mjs\")",
+      "Bash(sed -i '' \"s#'./src/engine#'/Users/locvuu/Developer/fireTX/src/engine#\" /tmp/debug-dp.mjs && zsh -l -c \"npx tsx /tmp/debug-dp.mjs\" 2>&1 | head -60)",
+      "Bash(curl -sI http://localhost:5174/)"
+    ]
+  }
+}
