@@ -54,6 +54,7 @@ export function LifetimeCostChart({ trace, birthYear }: LifetimeCostChartProps) 
           <Tooltip
             contentStyle={{ background: '#161b22', border: '1px solid #30363d', fontFamily: 'DM Mono' }}
             labelFormatter={(label) => `Age ${String(label)}`}
+            formatter={(value: number, name: string) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`, name]}
           />
           <Area type="monotone" dataKey="federalIncomeTax" stackId="cost" name="Federal income tax" stroke={COMPONENT_COLORS.federalIncomeTax} fill={COMPONENT_COLORS.federalIncomeTax} fillOpacity={0.5} />
           <Area type="monotone" dataKey="irmaa" stackId="cost" name="IRMAA" stroke={COMPONENT_COLORS.irmaa} fill={COMPONENT_COLORS.irmaa} fillOpacity={0.5} />

@@ -76,7 +76,10 @@ export function CostBreakdownChart({ assumptions, result }: CostBreakdownChartPr
           <CartesianGrid stroke={GRID_COLOR} strokeDasharray="3 3" />
           <XAxis dataKey="scenario" stroke="#8b949e" fontFamily="DM Mono" fontSize={12} />
           <YAxis stroke="#8b949e" fontFamily="DM Mono" fontSize={12} tickFormatter={(v: number) => `$${v / 1000}k`} />
-          <Tooltip contentStyle={{ background: '#161b22', border: '1px solid #30363d', fontFamily: 'DM Mono' }} />
+          <Tooltip 
+            contentStyle={{ background: '#161b22', border: '1px solid #30363d', fontFamily: 'DM Mono' }} 
+            formatter={(value: number, name: string) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`, name]} 
+          />
           <Bar dataKey="cost" fill={BAR_COLOR} />
         </BarChart>
       </ResponsiveContainer>
