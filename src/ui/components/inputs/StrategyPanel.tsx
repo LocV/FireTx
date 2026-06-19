@@ -7,6 +7,20 @@
 
 import { useState } from 'react';
 import { ssBenefitMultiplier } from '../../../engine/simulate.ts';
+
+/** Small ⓘ icon that shows a tooltip on hover. */
+function InfoTip({ text }: { text: string }) {
+  return (
+    <span className="group relative ml-1 inline-block align-middle">
+      <span className="cursor-default select-none rounded-full border border-border bg-surface px-1 font-mono text-xs text-text-muted">
+        ⓘ
+      </span>
+      <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1 w-56 -translate-x-1/2 rounded border border-border bg-surface px-2 py-1 text-xs text-text opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+        {text}
+      </span>
+    </span>
+  );
+}
 import { Phase, type Assumptions, type PhaseTemplate, type Strategy } from '../../../engine/types.ts';
 
 interface StrategyPanelProps {
@@ -111,8 +125,11 @@ export function StrategyPanel({ assumptions, strategy, onChange }: StrategyPanel
           })}
 
           <label className="flex flex-col gap-1 text-sm text-text-muted">
-            SS claim age: <span className="font-mono text-text">{strategy.ssClaimAge}</span>{' '}
-            (~<span className="font-mono text-text">${Math.round(monthlyBenefit).toLocaleString()}</span>/mo)
+            <span>
+              SS claim age: <span className="font-mono text-text">{strategy.ssClaimAge}</span>{' '}
+              (~<span className="font-mono text-text">${Math.round(monthlyBenefit).toLocaleString()}</span>/mo)
+              <InfoTip text="Age at which you start Social Security. Claiming at 62 gives the smallest benefit; delaying to 70 gives the largest (roughly 8% more per year). Later claiming also shrinks the conversion window before IRMAA kicks in." />
+            </span>
             <input
               type="range"
               min={SS_CLAIM_AGE_MIN}
