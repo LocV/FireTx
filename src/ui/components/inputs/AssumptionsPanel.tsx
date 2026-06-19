@@ -51,7 +51,10 @@ function NumberField(props: NumberFieldProps) {
         onChange(num);
       }
     } else {
-      onChange(Number(event.target.value));
+      const num = Number(event.target.value);
+      if (isFinite(num)) {
+        onChange(num);
+      }
     }
   };
 

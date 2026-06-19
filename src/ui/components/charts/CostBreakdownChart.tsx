@@ -45,18 +45,27 @@ export function CostBreakdownChart({ assumptions, result }: CostBreakdownChartPr
 
   const data = useMemo(() => {
     const numYears = assumptions.horizonAge - assumptions.currentAge;
-    const zeroDecision: YearDecision = { conversionAmount: 0, withdrawalOrder: ['taxable', 'traditional', 'roth'] };
-    const zeroResult = simulate(
-      { ssClaimAge: DEFAULT_NO_CONVERSION_SS_CLAIM_AGE, perYear: new Array(numYears).fill(zeroDecision) },
-      assumptions,
-    );
-    const { result: greedyResult } = greedyOptimize(assumptions);
-
-    return [
-      { scenario: 'No conversions', cost: zeroResult.totalCost },
-      { scenario: 'Greedy (current)', cost: result?.totalCost ?? greedyResult.totalCost },
-      { scenario: 'Deep optimize', cost: deepCost ?? 0 },
+    const empty = [
+      { scenario: 'No conversions', cost: 0 },
+      { scenario: 'Greedy (current)', cost: 0 },
+      { scenario: 'Deep optimize', cost: 0 },
     ];
+    if (numYears <= 0) return empty;
+    try {
+      const zeroDecision: YearDecision = { conversionAmount: 0, withdrawalOrder: ['taxable', 'traditional', 'roth'] };
+      const zeroResult = simulate(
+        { ssClaimAge: DEFAULT_NO_CONVERSION_SS_CLAIM_AGE, perYear: new Array(numYears).fill(zeroDecision) },
+        assumptions,
+      );
+      const { result: greedyResult } = greedyOptimize(assumptions);
+      return [
+        { scenario: 'No conversions', cost: zeroResult.totalCost },
+        { scenario: 'Greedy (current)', cost: result?.totalCost ?? greedyResult.totalCost },
+        { scenario: 'Deep optimize', cost: deepCost ?? 0 },
+      ];
+    } catch {
+      return empty;
+    }
   }, [assumptions, result, deepCost]);
 
   return (
